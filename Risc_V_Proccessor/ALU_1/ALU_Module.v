@@ -22,7 +22,4 @@ always@(*) begin
 end
 
 assign zero = (result == 32'b0);                            // Zero Flag
-
-
-
 endmodule
