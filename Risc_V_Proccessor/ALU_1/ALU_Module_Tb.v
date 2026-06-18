@@ -59,28 +59,45 @@ else
 
     // Sub tests
     // 15 - 10 = 5
-a = 15; b = 10; e_result = 5; sel = 3'b001; #10;
+a = 15; b = 10; e_result = 5; e_zero = 0; e_negative = 0; e_carry = 0; e_overflow = 0;  sel = 3'b001; #10;
 if ((result == e_result) & (zero == e_zero) & (neg == e_negative) & (carry == e_carry) & (overflow == e_overflow))
     $display("Pass");
 else
     $display("Fail! Result/Expected - Result:%0d/%0d - Zero:%0d/%0d - Neg:%0d/%0d - Carry:%0d/%0d - Overflow:%0d/%0d",
     result, e_result, zero, e_zero, neg, e_negative, carry, e_carry, overflow, e_overflow);
 
-    // 7 - (-7) = 0
-a = 7; b = -7; e_result = 0; sel = 3'b001; #10;
+    // 7 - 7 = 0
+a = 7; b = 7; e_result = 0; e_zero = 1; e_negative = 0; e_carry = 0; e_overflow = 0;  sel = 3'b001; #10;
 if ((result == e_result) & (zero == e_zero) & (neg == e_negative) & (carry == e_carry) & (overflow == e_overflow))
     $display("Pass");
 else
     $display("Fail! Result/Expected - Result:%0d/%0d - Zero:%0d/%0d - Neg:%0d/%0d - Carry:%0d/%0d - Overflow:%0d/%0d",
     result, e_result, zero, e_zero, neg, e_negative, carry, e_carry, overflow, e_overflow);
 
-    // 0 - 0 = 0
-a = 0; b = 0; e_result = 0; sel = 3'b001; #10;
+    // 5 - 10 = -5
+a = 5; b = 10; e_result = -5; e_zero = 0; e_negative = 1; e_carry = 1; e_overflow = 0;  sel = 3'b001; #10;
 if ((result == e_result) & (zero == e_zero) & (neg == e_negative) & (carry == e_carry) & (overflow == e_overflow))
     $display("Pass");
 else
     $display("Fail! Result/Expected - Result:%0d/%0d - Zero:%0d/%0d - Neg:%0d/%0d - Carry:%0d/%0d - Overflow:%0d/%0d",
     result, e_result, zero, e_zero, neg, e_negative, carry, e_carry, overflow, e_overflow);
+
+    // 2147483648 - 1 = 2147483647
+a = 32'h80000000; b = 1; e_result = 32'h7FFFFFFF; e_zero = 0; e_negative = 0; e_carry = 0; e_overflow = 1;  sel = 3'b001; #10;
+if ((result == e_result) & (zero == e_zero) & (neg == e_negative) & (carry == e_carry) & (overflow == e_overflow))
+    $display("Pass");
+else
+    $display("Fail! Result/Expected - Result:%0d/%0d - Zero:%0d/%0d - Neg:%0d/%0d - Carry:%0d/%0d - Overflow:%0d/%0d",
+    result, e_result, zero, e_zero, neg, e_negative, carry, e_carry, overflow, e_overflow);
+
+    // 2147483647 - 2147483648 = -1
+a = 32'h7FFFFFFF; b = 32'h80000000; e_result = 32'hFFFFFFFF; e_zero = 0; e_negative = 1; e_carry = 1; e_overflow = 1;  sel = 3'b001; #10;
+if ((result == e_result) & (zero == e_zero) & (neg == e_negative) & (carry == e_carry) & (overflow == e_overflow))
+    $display("Pass");
+else
+    $display("Fail! Result/Expected - Result:%0d/%0d - Zero:%0d/%0d - Neg:%0d/%0d - Carry:%0d/%0d - Overflow:%0d/%0d",
+    result, e_result, zero, e_zero, neg, e_negative, carry, e_carry, overflow, e_overflow);
+
 
     // And tests
     // 010 & 110 = 010
