@@ -16,7 +16,7 @@ always@(*) begin
     reg_write = 0;
     jal = 0;                    //Jump and save the return address
 
-    case({opcode, funct3, funct7[5]})
+    casez({opcode, funct3, funct7[5]})
     {7'b0110011, 3'b000, 0}: begin                          //ADD
         sel = 3'b000;
         reg_write = 1;
