@@ -25,6 +25,15 @@ if (e_pc == pc)
     $display("Pass");
 else
     $display("Fail! Result/Expected - PC:%0d/%0d", pc, e_pc);
+
+// PC update
+reset = 0; pc_next = 32'hFFFFFFFF; e_pc = 32'hFFFFFFFF;
+@(posedge clk); #1;
+
+if (e_pc == pc)
+    $display("Pass");
+else
+    $display("Fail! Result/Expected - PC:%0d/%0d", pc, e_pc);
 $finish;
 end
 endmodule
