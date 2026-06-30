@@ -1,5 +1,7 @@
 `timescale 1ns/1ps
 
+//The layout of this processor is based off Computer Organization and Design: The Hardware/Software Interface (RISC-V Edition) figure 4.21
+// When refering to the inspirtaion design remember that in this design alu_control and contol are combined under the one module.
 module top_module(
     input clk, reset);
 
@@ -23,6 +25,26 @@ wire [31:0] immediate;
 wire [31:0] pc, pc_next;
 // Already mentioned: reset, clk
 
+//pc +4
+wire [31:0] pc_4
+
+// Immediate shift
+wire [31:0] imm_shift;
+
+// Branch or Jump
+wire [31:0] branch_jump;
+
+// wire from and gate to the mux that selects next pc state
+wire and_pc_mux;
+
+//Alu
+wire zero, negative, carry, overflow;
+wire [31:0] b, result;
+//Already Mentioned: [2:0] select, reffered to as sel. [31:0] a is reffered to as read_data1
+
+//Data Memory
+wire [31:0] read_data;
+//Already mentioned: clk, mem_read, mem_write, address is same as result in alu, write_data is same as read_data2
 
 control_unit control_unit (
     .alu_immediate(alu_immediate),
@@ -67,3 +89,27 @@ p_count pc(
     .reset(reset),
     .clk(clk));
 
+//Pc_Next decision
+assign pc_4 = pc + 4;                               // Pc + 4
+assign imm_shift = immediate << 1;                  // Shift immediate left 1 (logical shift)
+assign branch_jump = pc + imm_shift;                //Disregard carry bits
+assign pc_and_mux = zero & branch;                  //Alu zero flag & control branch flag, acts as the sel for the pc_next mux
+assign pc_next = and_pc_mux ? branch_jump : pc_4;    // Mux that decides pc_next
+
+alu alu(
+    .select(sel),
+    .zero(zero),
+    .negative(negative),
+    .carry(carry),
+    .overflow(overflow),
+    .a(read_data1),
+    .b(b),
+    .result(result));
+
+//Read data2 to alu mux
+assign b = alu_immediate ? read_data2 : immediate;
+
+data_module data_mem(
+    .clk(clk)
+)
+endmodule
