@@ -69,19 +69,19 @@ register_file register_file (
 
 instruction_mem instruction_mem(
     .pc(pc),
-    .instructions(instructions));
+    .instruction(instruction));
 
 // following risc v unprivileged isa rv32i 2.1.4.2 integer register-register instructions diagram
 assign opcode = instruction[6:0];
 assign funct7 = instruction[31:25];
-assign funct3 = instructions[14:12];
-assign rs1 = instructions[19:15];
-assign rs2 = instructions[24:20];
-assign rd = instructions[11:7];
+assign funct3 = instruction[14:12];
+assign rs1 = instruction[19:15];
+assign rs2 = instruction[24:20];
+assign rd = instruction[11:7];
 
 immediate_gen immediate_gen(
     .immediate(immediate),
-    .instruction(instructions));
+    .instruction(instruction));
 
 p_count pc(
     .pc(pc),
@@ -110,6 +110,13 @@ alu alu(
 assign b = alu_immediate ? read_data2 : immediate;
 
 data_module data_mem(
-    .clk(clk)
-)
+    .clk(clk),
+    .read_data(read_data),
+    .mem_read(mem_read),
+    .mem_write(mem_write),
+    .address(result),
+    .write_data(result));
+
+//write data to reg mux
+assign write_data = 
 endmodule
