@@ -118,5 +118,5 @@ data_module data_mem(
     .write_data(result));
 
 //write data to reg mux
-assign write_data = 
+assign write_data = ghfwifk
 endmodule
