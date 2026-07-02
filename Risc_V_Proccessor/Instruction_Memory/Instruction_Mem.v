@@ -9,7 +9,7 @@ reg [31:0] mem [0:1023];
 assign instruction = mem[pc[11:2]];          //PC loads a 32 bit instruction bits 11:2 represent a location in that memory array.
 
 initial begin
-    $readmemh("instruction_mem.hex", mem);
+    $readmemh("Instruction_Memory/instruction_mem.hex", mem);
 end
 endmodule
 

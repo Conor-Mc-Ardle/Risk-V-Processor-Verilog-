@@ -25,8 +25,8 @@ wire [31:0] immediate;
 wire [31:0] pc, pc_next;
 // Already mentioned: reset, clk
 
-//pc +4
-wire [31:0] pc_4
+//pc +4;
+wire [31:0] pc_4;
 
 // Immediate shift
 wire [31:0] imm_shift;
@@ -35,7 +35,7 @@ wire [31:0] imm_shift;
 wire [31:0] branch_jump;
 
 // wire from and gate to the mux that selects next pc state
-wire and_pc_mux;
+wire pc_and_mux;
 
 //Alu
 wire zero, negative, carry, overflow;
@@ -63,6 +63,7 @@ register_file register_file (
     .rs1(rs1),
     .rs2(rs2),
     .rd(rd),
+    .clk(clk),
     .write_data(write_data),
     .read_data1(read_data1),
     .read_data2(read_data2));
@@ -83,7 +84,7 @@ immediate_gen immediate_gen(
     .immediate(immediate),
     .instruction(instruction));
 
-p_count pc(
+p_count programme_counter(
     .pc(pc),
     .pc_next(pc_next),
     .reset(reset),
@@ -91,10 +92,10 @@ p_count pc(
 
 //Pc_Next decision
 assign pc_4 = pc + 4;                               // Pc + 4
-assign imm_shift = immediate << 1;                  // Shift immediate left 1 (logical shift)
+assign imm_shift = immediate;
 assign branch_jump = pc + imm_shift;                //Disregard carry bits
 assign pc_and_mux = zero & branch;                  //Alu zero flag & control branch flag, acts as the sel for the pc_next mux
-assign pc_next = and_pc_mux ? branch_jump : pc_4;    // Mux that decides pc_next
+assign pc_next = (jal | pc_and_mux) ? branch_jump : pc_4;    // Mux that decides pc_next
 
 alu alu(
     .select(sel),
@@ -107,7 +108,7 @@ alu alu(
     .result(result));
 
 //Read data2 to alu mux
-assign b = alu_immediate ? read_data2 : immediate;
+assign b = alu_immediate ? immediate : read_data2;
 
 data_module data_mem(
     .clk(clk),
@@ -115,8 +116,7 @@ data_module data_mem(
     .mem_read(mem_read),
     .mem_write(mem_write),
     .address(result),
-    .write_data(result));
+    .write_data(read_data2));
 
-//write data to reg mux
-assign write_data = ghfwifk
+assign write_data = jal ? pc_4  : mem_read ? read_data : result;
 endmodule
