@@ -31,11 +31,11 @@ always@(*) begin
         reg_write = 1;
     end
     {7'b0110011, 3'b100, 1'bz}: begin                          //XOR
-        sel = 3'b011;
+        sel = 3'b100;
         reg_write = 1;
     end
     {7'b0110011, 3'b110, 1'bz}: begin                          //OR
-        sel = 3'b100;
+        sel = 3'b011;
         reg_write = 1;
     end
     {7'b0110011, 3'b001, 1'bz}: begin                          //SLL
