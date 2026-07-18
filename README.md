@@ -8,8 +8,10 @@ This is a custom 32-Bit RISK-V Single Cyle Processor. It can handle 12 instructi
 Supported Instructions
 ===
 ***Type &emsp;&emsp; Instructions***<br>
-R-Type &emsp;&emsp; `ADD`,`SUB`,`AND`,`OR`,`XOR`,`SLL`,`SLT`,<br>
+R-Type &emsp;&emsp; `ADD`,`SUB`,`AND`,`OR`,`XOR`,`SLL`,`SLT`<br>
 I-Type &emsp;&emsp; `ADDI`,`LW`<br>
 S-Type &emsp;&emsp; `SW`<br>
 B-Type &emsp;&emsp; `BEQ`<br>
 J-Type &emsp;&emsp; `JAL`<br>
+<br>
+Decoding follows: [RV32 Instruction Set Listings](https://docs.riscv.org/reference/isa/v20260120/unpriv/rv-32-64g.html)
