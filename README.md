@@ -7,14 +7,9 @@ This is a custom 32-Bit RISK-V Single Cyle Processor. It can handle 12 instructi
 
 Supported Instructions
 ===
-Type &emsp;&emsp; Instructions
-***
-R-Type &emsp;&emsp; `ADD`,`SUB`,`AND`,`OR`,`XOR`,`SLL`,`SLT`
-***
-I-Type &emsp;&emsp; `ADDI`,`LW`
-***
-S-Type &emsp;&emsp; `SW`
-***
-B-Type &emsp;&emsp; `BEQ`
-***
-J-Type &emsp;&emsp; `JAL`
+***Type &emsp;&emsp; Instructions***<br>
+R-Type &emsp;&emsp; `ADD`,`SUB`,`AND`,`OR`,`XOR`,`SLL`,`SLT`,<br>
+I-Type &emsp;&emsp; `ADDI`,`LW`<br>
+S-Type &emsp;&emsp; `SW`<br>
+B-Type &emsp;&emsp; `BEQ`<br>
+J-Type &emsp;&emsp; `JAL`<br>
