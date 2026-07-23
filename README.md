@@ -60,8 +60,8 @@ Below is the final waveform diagram for the `initial_mem.hex` in this repo.
 
 Known Limitations (Potential Future Changes)
 ===
-+ Only single-cycle. Pipelining would allow for a higher throughput, its not an issue as this cpu is not on physical hardware, but if it were to be adapted for real hardware piplining is advisable.
-+ There currently isnt any CSR support, exeptions or interrupts. CSR is an important addition from a reliability, error handeling and cycber-security standpoint. Exeptions is important for memory protection, illegal instruction detection and system calls. Interrupts is a required additon for multitasking and I/O.
++ Only single-cycle. Pipelining would allow for a higher throughput, its not an issue as this cpu is not on physical hardware, but if it were to be adapted for real hardware pipelining is advisable.
++ There currently isnt any CSR support, exceptions or interrupts. CSR is an important addition from a reliability, error handling and cyber-security standpoint. Exceptions is important for memory protection, illegal instruction detection and system calls. Interrupts are a required additon for multitasking and I/O.
 + There are many more instructions that can be added for example `JALR`, `LUI`, `AUIPC`, remaining branch instructions, ect.
 <br>
 
