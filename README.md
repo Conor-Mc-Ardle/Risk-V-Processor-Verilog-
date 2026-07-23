@@ -45,4 +45,31 @@ vvp sim.vvp
 gtkwave dump.vcd
 ```
 
-This compiles the full processor. It runs the current program in `instruction_mem.hex`, it prints a per-cycle trace to the terminal, dumps the waveform to `dump.vcd`, and writes the final data memory contents into `final_mem.hex`.
+This compiles the full processor. It runs the current program in `instruction_mem.hex`, it prints a per-cycle trace to the terminal, dumps the waveform to `dump.vcd`, and writes the final data memory contents into `final_mem.hex`.<br>
+
+Verification
+===
++ There is a testbench for ALU, Control Unit, Register File, Instruction Memory, Immediate Generator, Programme Counter and Data Memory.<br>
++ The `Top_Module_Tb` testbench works slightly differently, it exersizes the current program stored in `instruction_mem.hex`and stores the final state in `final_mem.hex`. <br>
+<br>
+Below is the final waveform diagram for the `initial_mem.hex` in this repo.
+<br>
+
+![alt text](<Screenshot 2026-07-03 000758.png>)
+<br>
+
+Known Limitations (Potential Future Changes)
+===
++ Only single-cycle. Pipelining would allow for a higher throughput, its not an issue as this cpu is not on physical hardware, but if it were to be adapted for real hardware piplining is advisable.
++ There currently isnt any CSR support, exeptions or interrupts. CSR is an important addition from a reliability, error handeling and cycber-security standpoint. Exeptions is important for memory protection, illegal instruction detection and system calls. Interrupts is a required additon for multitasking and I/O.
++ There are many more instructions that can be added for example `JALR`, `LUI`, `AUIPC`, remaining branch instructions, ect.
+<br>
+
+References
+===
+Patterson & Hennessy, Computer Organization and Design: The Hardware/ Software Interface (RISC-V Edition) - datapath layout reference (Figure 4.21). <br>
+[RISC-V Specifications ISA](https://docs.riscv.org/reference/isa/v20260120/unpriv/rv32.html)
+<br>
+
+Thanks for viewing, <br>
+Conor McArdle
